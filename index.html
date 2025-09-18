@@ -1,123 +1,247 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Varanasi Coders League (VCL)</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap"
+      rel="stylesheet"
+    />
     <style>
-        body {
-            font-family: 'Inter', sans-serif;
-        }
+      body {
+        font-family: "Inter", sans-serif;
+      }
+      .fade-up {
+        opacity: 0;
+        transform: translateY(30px);
+        transition: opacity 0.8s ease, transform 0.8s ease;
+      }
+      .fade-up.show {
+        opacity: 1;
+        transform: translateY(0);
+      }
     </style>
-</head>
-<body class="bg-gray-900 text-white">
-
+  </head>
+  <body class="bg-gradient-to-b from-black via-gray-900 to-black text-gray-200">
     <!-- Header -->
-    <header class="absolute top-0 left-0 right-0 z-10">
-        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
-            <h1 class="text-2xl font-bold">VCL</h1>
-            <nav>
-                <a href="#about" class="mx-2 hover:text-gray-300">About</a>
-                <a href="#prizes" class="mx-2 hover:text-gray-300">Prizes</a>
-                <a href="#sponsors" class="mx-2 hover:text-gray-300">Sponsors</a>
-                <a href="#faq" class="mx-2 hover:text-gray-300">FAQ</a>
-            </nav>
-        </div>
+    <header
+      id="header"
+      class="fixed top-0 left-0 right-0 z-30 transition-all duration-500"
+    >
+      <div
+        class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center"
+      >
+        <h1
+          class="text-3xl font-extrabold bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent"
+        >
+          VCL
+        </h1>
+        <nav class="hidden md:flex space-x-8">
+          <a href="#about" class="hover:text-white transition">About</a>
+          <a href="#prizes" class="hover:text-white transition">Prizes</a>
+          <a href="#sponsors" class="hover:text-white transition">Sponsors</a>
+          <a href="#faq" class="hover:text-white transition">FAQ</a>
+        </nav>
+        <a
+          href="#register"
+          class="hidden sm:inline-block bg-gradient-to-r from-blue-500 to-purple-600 text-white font-semibold py-2 px-6 rounded-full shadow-lg hover:shadow-xl hover:scale-105 transition"
+          >Register</a
+        >
+      </div>
     </header>
 
-    <!-- Hero Section -->
-    <main class="relative">
-        <div class="min-h-screen flex items-center justify-center bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1522071820081-009f0129c71c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1740&q=80');">
-            <div class="absolute inset-0 bg-black opacity-60"></div>
-            <div class="relative text-center z-10">
-                <h2 class="text-5xl md:text-7xl font-bold mb-4">Varanasi Coders League</h2>
-                <p class="text-xl md:text-2xl mb-8">The ultimate hackathon for MGKVP students.</p>
-                <a href="#" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-full text-lg">Register Now</a>
-            </div>
+    <!-- Hero -->
+    <section
+      class="min-h-screen flex items-center justify-center relative text-center"
+    >
+      <video
+        autoplay
+        muted
+        loop
+        playsinline
+        class="absolute top-0 left-0 w-full h-full object-cover opacity-30"
+      >
+        <source
+          src="https://cdn.coverr.co/videos/coverr-programming-setup-typing-6891/1080p.mp4"
+          type="video/mp4"
+        />
+      </video>
+      <div
+        class="absolute inset-0 bg-gradient-to-b from-black/80 via-black/50 to-black"
+      ></div>
+      <div class="relative z-10 max-w-3xl px-6 fade-up">
+        <h2
+          class="text-5xl md:text-7xl font-extrabold text-white mb-6 leading-tight"
+        >
+          Varanasi Coders League
+        </h2>
+        <p class="text-xl md:text-2xl text-gray-300 mb-8">
+          The ultimate hackathon for MGKVP students 🚀
+        </p>
+        <a
+          href="#register"
+          class="inline-block bg-gradient-to-r from-blue-500 to-purple-600 text-white font-semibold py-4 px-10 rounded-full text-lg shadow-lg hover:shadow-xl hover:scale-105 transition"
+          >Register Now</a
+        >
+      </div>
+    </section>
+
+    <!-- About -->
+    <section id="about" class="py-24">
+      <div
+        class="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-16 items-center"
+      >
+        <div class="fade-up">
+          <h3 class="text-4xl font-bold text-white mb-6">About VCL</h3>
+          <p class="text-lg text-gray-300 leading-relaxed">
+            Varanasi Coders League (VCL) is a student-run hackathon aimed at
+            fostering innovation, collaboration, and a spirit of friendly
+            competition among the students of Mahatma Gandhi Kashi Vidyapith
+            (MGKVP).
+          </p>
+          <p class="mt-4 text-lg text-gray-300 leading-relaxed">
+            We believe in the power of code to solve real-world problems and
+            provide a platform for students to showcase their skills, learn, and
+            connect with industry professionals.
+          </p>
         </div>
+        <div class="fade-up">
+          <img
+            src="https://images.unsplash.com/photo-1537432376769-00a4c4ab17c0?ixlib=rb-4.0.3&auto=format&fit=crop&w=1740&q=80"
+            alt="Hackathon"
+            class="rounded-3xl shadow-2xl hover:scale-105 transition-transform duration-500"
+          />
+        </div>
+      </div>
+    </section>
 
-        <!-- About Section -->
-        <section id="about" class="py-20">
-            <div class="container mx-auto px-6">
-                <h3 class="text-4xl font-bold text-center mb-12">About VCL</h3>
-                <div class="flex flex-wrap items-center">
-                    <div class="w-full md:w-1/2 px-6 mb-8 md:mb-0">
-                        <p class="text-lg leading-relaxed">
-                            Varanasi Coders League (VCL) is a student-run hackathon aimed at fostering innovation, collaboration, and a spirit of friendly competition among the students of Mahatma Gandhi Kashi Vidyapith (MGKVP). We believe in the power of code to solve real-world problems and aim to provide a platform for students to showcase their skills, learn from their peers, and connect with industry professionals.
-                        </p>
-                    </div>
-                    <div class="w-full md:w-1/2 px-6">
-                        <img src="https://images.unsplash.com/photo-1556761175-5973dc0f32e7?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1740&q=80" alt="About VCL" class="rounded-lg shadow-lg">
-                    </div>
-                </div>
-            </div>
-        </section>
+    <!-- Prizes -->
+    <section id="prizes" class="py-24 bg-gray-900/50">
+      <div class="max-w-7xl mx-auto px-6 text-center">
+        <h3 class="text-4xl font-bold text-white mb-16">🏆 Prizes</h3>
+        <div class="grid md:grid-cols-3 gap-10">
+          <div
+            class="bg-gray-800/60 backdrop-blur-lg rounded-2xl p-8 shadow-lg hover:scale-105 transition fade-up"
+          >
+            <h4 class="text-2xl font-bold text-white mb-4">1st Place</h4>
+            <p class="text-lg text-gray-300">₹50,000 + Goodies</p>
+          </div>
+          <div
+            class="bg-gradient-to-r from-blue-500 to-purple-600 rounded-2xl p-8 shadow-lg hover:scale-105 transition fade-up"
+          >
+            <h4 class="text-2xl font-bold text-white mb-4">2nd Place</h4>
+            <p class="text-lg text-white">₹25,000 + Goodies</p>
+          </div>
+          <div
+            class="bg-gray-800/60 backdrop-blur-lg rounded-2xl p-8 shadow-lg hover:scale-105 transition fade-up"
+          >
+            <h4 class="text-2xl font-bold text-white mb-4">3rd Place</h4>
+            <p class="text-lg text-gray-300">₹10,000 + Goodies</p>
+          </div>
+        </div>
+      </div>
+    </section>
 
-        <!-- Prizes Section -->
-        <section id="prizes" class="py-20 bg-gray-800">
-            <div class="container mx-auto px-6">
-                <h3 class="text-4xl font-bold text-center mb-12">Prizes</h3>
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
-                    <div class="bg-gray-700 p-8 rounded-lg">
-                        <h4 class="text-2xl font-bold mb-4">1st Place</h4>
-                        <p class="text-lg">₹50,000 Cash Prize + Goodies</p>
-                    </div>
-                    <div class="bg-gray-700 p-8 rounded-lg">
-                        <h4 class="text-2xl font-bold mb-4">2nd Place</h4>
-                        <p class="text-lg">₹25,000 Cash Prize + Goodies</p>
-                    </div>
-                    <div class="bg-gray-700 p-8 rounded-lg">
-                        <h4 class="text-2xl font-bold mb-4">3rd Place</h4>
-                        <p class="text-lg">₹10,000 Cash Prize + Goodies</p>
-                    </div>
-                </div>
-            </div>
-        </section>
+    <!-- Sponsors -->
+    <section id="sponsors" class="py-24">
+      <div class="max-w-7xl mx-auto px-6 text-center">
+        <h3 class="text-4xl font-bold text-white mb-16">✨ Our Sponsors</h3>
+        <div class="flex flex-wrap justify-center gap-10 fade-up">
+          <img
+            src="https://placehold.co/160x80?text=Aryan"
+            class="h-16 hover:scale-110 transition"
+          />
+          <img
+            src="https://placehold.co/160x80?text=Raunak"
+            class="h-16 hover:scale-110 transition"
+          />
+          <img
+            src="https://placehold.co/160x80?text=Vaibhav"
+            class="h-16 hover:scale-110 transition"
+          />
+          <img
+            src="https://placehold.co/160x80?text=Saumya"
+            class="h-16 hover:scale-110 transition"
+          />
+        </div>
+      </div>
+    </section>
 
-        <!-- Sponsors Section -->
-        <section id="sponsors" class="py-20">
-            <div class="container mx-auto px-6">
-                <h3 class="text-4xl font-bold text-center mb-12">Our Sponsors</h3>
-                <div class="flex flex-wrap justify-center items-center gap-8">
-                    <img src="https://via.placeholder.com/150x80.png?text=Sponsor+1" alt="Sponsor 1" class="h-16">
-                    <img src="https://via.placeholder.com/150x80.png?text=Sponsor+2" alt="Sponsor 2" class="h-16">
-                    <img src="https://via.placeholder.com/150x80.png?text=Sponsor+3" alt="Sponsor 3" class="h-16">
-                    <img src="https://via.placeholder.com/150x80.png?text=Sponsor+4" alt="Sponsor 4" class="h-16">
-                </div>
-            </div>
-        </section>
-
-        <!-- FAQ Section -->
-        <section id="faq" class="py-20 bg-gray-800">
-            <div class="container mx-auto px-6">
-                <h3 class="text-4xl font-bold text-center mb-12">Frequently Asked Questions</h3>
-                <div class="max-w-3xl mx-auto">
-                    <div class="mb-4">
-                        <h4 class="text-xl font-semibold mb-2">Who can participate?</h4>
-                        <p>Any student currently enrolled in any course at MGKVP can participate.</p>
-                    </div>
-                    <div class="mb-4">
-                        <h4 class="text-xl font-semibold mb-2">What is the team size?</h4>
-                        <p>Teams can consist of 2 to 4 members.</p>
-                    </div>
-                    <div class="mb-4">
-                        <h4 class="text-xl font-semibold mb-2">Is there a registration fee?</h4>
-                        <p>No, participation in VCL is completely free.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-    </main>
+    <!-- FAQ -->
+    <section id="faq" class="py-24 bg-gray-900/50">
+      <div class="max-w-4xl mx-auto px-6">
+        <h3 class="text-4xl font-bold text-white text-center mb-16">❓ FAQ</h3>
+        <div class="space-y-6">
+          <div class="bg-gray-800/60 p-6 rounded-xl shadow fade-up">
+            <h4 class="text-xl font-semibold text-white">
+              Who can participate?
+            </h4>
+            <p class="text-gray-300">
+              Any student currently enrolled at MGKVP can join.
+            </p>
+          </div>
+          <div class="bg-gray-800/60 p-6 rounded-xl shadow fade-up">
+            <h4 class="text-xl font-semibold text-white">
+              What is the team size?
+            </h4>
+            <p class="text-gray-300">Teams can have 2–4 members.</p>
+          </div>
+          <div class="bg-gray-800/60 p-6 rounded-xl shadow fade-up">
+            <h4 class="text-xl font-semibold text-white">
+              Is there a registration fee?
+            </h4>
+            <p class="text-gray-300">
+              No, participation in VCL is completely free.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
 
     <!-- Footer -->
-    <footer class="bg-gray-900 py-8">
-        <div class="container mx-auto px-6 text-center">
-            <p>&copy; 2025 Varanasi Coders League. All rights reserved.</p>
-            <p>Created by Aryan Verma, BCA @ MGKVP</p>
-        </div>
+    <footer class="border-t border-gray-800 py-8 text-center text-gray-400">
+      <p>&copy; 2025 Varanasi Coders League. All rights reserved.</p>
+      <p class="mt-2">Created by Aryan Verma, BCA @ MGKVP</p>
+      <div class="flex justify-center mt-4 space-x-6">
+        <a href="#" class="hover:text-white transition">Twitter</a>
+        <a href="#" class="hover:text-white transition">LinkedIn</a>
+        <a href="#" class="hover:text-white transition">GitHub</a>
+      </div>
     </footer>
 
-</body>
+    <!-- Scripts -->
+    <script>
+      // Sticky header effect
+      const header = document.getElementById("header");
+      window.addEventListener("scroll", () => {
+        if (window.scrollY > 50) {
+          header.classList.add("bg-black/80", "backdrop-blur-lg", "shadow-lg");
+        } else {
+          header.classList.remove(
+            "bg-black/80",
+            "backdrop-blur-lg",
+            "shadow-lg"
+          );
+        }
+      });
+
+      // Fade-in animation
+      const faders = document.querySelectorAll(".fade-up");
+      const observer = new IntersectionObserver(
+        (entries, obs) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add("show");
+              obs.unobserve(entry.target);
+            }
+          });
+        },
+        { threshold: 0.2 }
+      );
+
+      faders.forEach((el) => observer.observe(el));
+    </script>
+  </body>
 </html>
