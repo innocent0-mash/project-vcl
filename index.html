@@ -14,15 +14,16 @@
     <meta name="author" content="Aryan Verma" />
     <title>ByteBattle - Innovative Solutions Platform</title>
 
+    <!-- Preload critical resources -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
     <!-- Favicon -->
     <link
       rel="icon"
-      type="image/x-icon"
+      type="image/svg+xml"
       href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🚀</text></svg>"
     />
-
-    <!-- JQuery -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -34,6 +35,13 @@
               "fade-in": "fadeIn 0.6s ease-in-out",
               "slide-up": "slideUp 0.8s ease-out",
               "bounce-slow": "bounce 2s infinite",
+              float: "float 3s ease-in-out infinite",
+            },
+            keyframes: {
+              float: {
+                "0%, 100%": { transform: "translateY(0px)" },
+                "50%": { transform: "translateY(-10px)" },
+              },
             },
           },
         },
@@ -41,30 +49,25 @@
     </script>
 
     <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
       rel="stylesheet"
     />
 
-    <!-- Bootstrap Icon -->
+    <!-- Bootstrap Icons -->
     <link
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css"
     />
 
-    <!-- Popper JS -->
-    <script
-      src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
-      integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
-      crossorigin="anonymous"
-    ></script>
-
-    <!-- Custom Styles -->
+    <!-- Custom CSS -->
     <style>
       * {
         font-family: "Poppins", sans-serif;
+      }
+
+      html {
+        scroll-behavior: smooth;
       }
 
       @keyframes fadeIn {
@@ -131,26 +134,92 @@
 
       .dropdown:hover .dropdown-menu {
         display: block;
+        opacity: 1;
+        transform: translateY(0);
       }
 
       .dropdown-menu {
+        opacity: 0;
+        transform: translateY(-10px);
         transition: all 0.3s ease-in-out;
-        z-index: 10;
+        z-index: 50;
+      }
+
+      .feature-card {
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+
+      .feature-card:hover {
+        transform: translateY(-5px) scale(1.02);
+      }
+
+      .hero-bg {
+        background: radial-gradient(
+          ellipse at center,
+          rgba(244, 63, 94, 0.1) 0%,
+          transparent 70%
+        );
+      }
+
+      /* Loading animation */
+      .loading {
+        opacity: 0;
+        animation: fadeIn 0.8s ease-in-out forwards;
+      }
+
+      /* Intersection observer animations */
+      .animate-on-scroll {
+        opacity: 0;
+        transform: translateY(30px);
+        transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+
+      .animate-on-scroll.in-view {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      /* Performance optimized gradients */
+      .gradient-text {
+        background: linear-gradient(135deg, #f43f5e, #ec4899, #d946ef);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
       }
     </style>
   </head>
 
-  <body class="bg-gray-900 text-rose-600 font-normal min-h-screen">
+  <body class="bg-gray-900 text-rose-600 font-normal min-h-screen loading">
+    <!-- Skip to main content for accessibility -->
+    <a
+      href="#main-content"
+      class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 bg-rose-600 text-white px-4 py-2 rounded"
+    >
+      Skip to main content
+    </a>
+
     <!-- Header -->
     <header
       class="gradient-bg rounded-lg m-4 px-6 py-6 shadow-2xl animate-fade-in"
+      role="banner"
     >
       <div class="flex justify-between items-center mb-6">
-        <h1 class="text-5xl font-bold text-white tracking-wider drop-shadow-lg">
-          <i class="bi bi-rocket-takeoff mr-3"></i>ByteBattle
+        <h1
+          class="text-4xl md:text-5xl font-bold text-white tracking-wider drop-shadow-lg"
+        >
+          <i
+            class="bi bi-rocket-takeoff mr-3 animate-float"
+            aria-hidden="true"
+          ></i>
+          <span class="gradient-text">ByteBattle</span>
         </h1>
-        <button id="hamburger-button" class="md:hidden text-white text-3xl">
-          <i class="bi bi-list"></i>
+        <button
+          id="hamburger-button"
+          class="md:hidden text-white text-3xl focus:outline-none focus:ring-2 focus:ring-white rounded p-2"
+          aria-label="Toggle navigation menu"
+          aria-expanded="false"
+        >
+          <i class="bi bi-list" aria-hidden="true"></i>
         </button>
       </div>
 
@@ -159,73 +228,88 @@
         id="main-nav"
         class="hidden md:flex justify-center"
         aria-label="Main Navigation"
+        role="navigation"
       >
-        <ul class="flex flex-col md:flex-row gap-3">
-          <li>
+        <ul class="flex flex-col md:flex-row gap-3" role="menubar">
+          <li role="none">
             <a
-              class="nav-link inline-block text-center font-bold px-4 py-3 w-36 rounded-full text-rose-600 bg-white/90 hover:bg-white hover:text-gray-800 hover:shadow-lg transform hover:scale-105 transition-all duration-300 backdrop-blur-sm"
+              class="nav-link inline-block text-center font-bold px-4 py-3 w-36 rounded-full text-rose-600 bg-white/90 hover:bg-white hover:text-gray-800 hover:shadow-lg transform hover:scale-105 transition-all duration-300 backdrop-blur-sm focus:outline-none focus:ring-2 focus:ring-rose-400"
               href="#home"
+              role="menuitem"
               aria-current="page"
             >
-              <i class="bi bi-house-fill mr-2"></i>Home
+              <i class="bi bi-house-fill mr-2" aria-hidden="true"></i>Home
             </a>
           </li>
-          <li>
+          <li role="none">
             <a
-              class="nav-link inline-block text-center font-bold px-4 py-3 w-36 rounded-full text-rose-600 bg-white/90 hover:bg-white hover:text-gray-800 hover:shadow-lg transform hover:scale-105 transition-all duration-300 backdrop-blur-sm"
+              class="nav-link inline-block text-center font-bold px-4 py-3 w-36 rounded-full text-rose-600 bg-white/90 hover:bg-white hover:text-gray-800 hover:shadow-lg transform hover:scale-105 transition-all duration-300 backdrop-blur-sm focus:outline-none focus:ring-2 focus:ring-rose-400"
               href="#about"
+              role="menuitem"
             >
-              <i class="bi bi-info-circle-fill mr-2"></i>About
+              <i class="bi bi-info-circle-fill mr-2" aria-hidden="true"></i
+              >About
             </a>
           </li>
-          <li class="relative dropdown">
+          <li class="relative dropdown" role="none">
             <a
-              class="nav-link inline-block text-center font-bold px-4 py-3 w-36 rounded-full text-rose-600 bg-white/90 hover:bg-white hover:text-gray-800 hover:shadow-lg transform hover:scale-105 transition-all duration-300 backdrop-blur-sm dropdown-toggle"
+              class="nav-link inline-block text-center font-bold px-4 py-3 w-36 rounded-full text-rose-600 bg-white/90 hover:bg-white hover:text-gray-800 hover:shadow-lg transform hover:scale-105 transition-all duration-300 backdrop-blur-sm dropdown-toggle focus:outline-none focus:ring-2 focus:ring-rose-400"
               href="#services"
+              role="menuitem"
+              aria-haspopup="true"
+              aria-expanded="false"
             >
-              <i class="bi bi-gear-fill mr-2"></i>Services
-              <i class="bi bi-chevron-down ml-1"></i>
+              <i class="bi bi-gear-fill mr-2" aria-hidden="true"></i>Services
+              <i class="bi bi-chevron-down ml-1" aria-hidden="true"></i>
             </a>
             <ul
               class="dropdown-menu absolute hidden bg-white/90 rounded-lg shadow-lg mt-2 w-48"
+              role="menu"
+              aria-label="Services submenu"
             >
-              <li>
+              <li role="none">
                 <a
-                  href="#"
-                  class="block px-4 py-2 text-rose-600 hover:bg-white hover:text-gray-800"
+                  href="#services"
+                  class="block px-4 py-2 text-rose-600 hover:bg-white hover:text-gray-800 focus:outline-none focus:bg-white focus:text-gray-800"
+                  role="menuitem"
                   >Web Development</a
                 >
               </li>
-              <li>
+              <li role="none">
                 <a
-                  href="#"
-                  class="block px-4 py-2 text-rose-600 hover:bg-white hover:text-gray-800"
+                  href="#services"
+                  class="block px-4 py-2 text-rose-600 hover:bg-white hover:text-gray-800 focus:outline-none focus:bg-white focus:text-gray-800"
+                  role="menuitem"
                   >Mobile App Development</a
                 >
               </li>
-              <li>
+              <li role="none">
                 <a
-                  href="#"
-                  class="block px-4 py-2 text-rose-600 hover:bg-white hover:text-gray-800"
+                  href="#services"
+                  class="block px-4 py-2 text-rose-600 hover:bg-white hover:text-gray-800 focus:outline-none focus:bg-white focus:text-gray-800"
+                  role="menuitem"
                   >Cloud Solutions</a
                 >
               </li>
             </ul>
           </li>
-          <li>
+          <li role="none">
             <a
-              class="nav-link inline-block text-center font-bold px-4 py-3 w-36 rounded-full text-rose-600 bg-white/90 hover:bg-white hover:text-gray-800 hover:shadow-lg transform hover:scale-105 transition-all duration-300 backdrop-blur-sm"
+              class="nav-link inline-block text-center font-bold px-4 py-3 w-36 rounded-full text-rose-600 bg-white/90 hover:bg-white hover:text-gray-800 hover:shadow-lg transform hover:scale-105 transition-all duration-300 backdrop-blur-sm focus:outline-none focus:ring-2 focus:ring-rose-400"
               href="#portfolio"
+              role="menuitem"
             >
-              <i class="bi bi-briefcase-fill mr-2"></i>Portfolio
+              <i class="bi bi-briefcase-fill mr-2" aria-hidden="true"></i
+              >Portfolio
             </a>
           </li>
-          <li>
+          <li role="none">
             <a
-              class="nav-link inline-block text-center font-bold px-4 py-3 w-36 rounded-full text-rose-600 bg-white/90 hover:bg-white hover:text-gray-800 hover:shadow-lg transform hover:scale-105 transition-all duration-300 backdrop-blur-sm"
+              class="nav-link inline-block text-center font-bold px-4 py-3 w-36 rounded-full text-rose-600 bg-white/90 hover:bg-white hover:text-gray-800 hover:shadow-lg transform hover:scale-105 transition-all duration-300 backdrop-blur-sm focus:outline-none focus:ring-2 focus:ring-rose-400"
               href="#contact"
+              role="menuitem"
             >
-              <i class="bi bi-envelope-fill mr-2"></i>Contact
+              <i class="bi bi-envelope-fill mr-2" aria-hidden="true"></i>Contact
             </a>
           </li>
         </ul>
@@ -233,35 +317,45 @@
     </header>
 
     <!-- Main Content -->
-    <main class="px-4 pb-8">
+    <main class="px-4 pb-8" id="main-content" role="main">
       <!-- Hero Section -->
       <section
         id="home"
-        class="glass-effect rounded-lg p-8 mb-6 animate-slide-up"
+        class="glass-effect rounded-lg p-8 mb-6 animate-slide-up hero-bg"
+        aria-labelledby="hero-heading"
       >
         <div class="text-center">
-          <h2 class="text-3xl font-bold text-white mb-4">
-            Welcome to ByteBattleeBattle Platform
+          <h2
+            id="hero-heading"
+            class="text-3xl md:text-4xl font-bold text-white mb-4"
+          >
+            Welcome to ByteBattle Platform
           </h2>
           <p class="text-gray-300 text-lg mb-6 max-w-2xl mx-auto">
             Experience innovative solutions and cutting-edge technology designed
             to transform your digital presence.
           </p>
           <button
-            class="bg-rose-600 hover:bg-rose-700 text-white font-bold py-3 px-8 rounded-full transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl"
+            class="bg-rose-600 hover:bg-rose-700 text-white font-bold py-3 px-8 rounded-full transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl focus:outline-none focus:ring-4 focus:ring-rose-300"
+            aria-label="Get started with ByteBattle"
           >
-            <i class="bi bi-arrow-right-circle mr-2"></i>Get Started
+            <i class="bi bi-arrow-right-circle mr-2" aria-hidden="true"></i>Get
+            Started
           </button>
         </div>
       </section>
 
       <!-- Features Section -->
-      <section class="grid md:grid-cols-3 gap-6 mb-6">
-        <div
-          class="glass-effect rounded-lg p-6 text-center transform hover:scale-105 transition-all duration-300"
-        >
+      <section
+        class="grid md:grid-cols-3 gap-6 mb-6 animate-on-scroll"
+        aria-labelledby="features-heading"
+      >
+        <h2 id="features-heading" class="sr-only">Our Key Features</h2>
+
+        <article class="feature-card glass-effect rounded-lg p-6 text-center">
           <i
             class="bi bi-lightning-charge text-4xl text-rose-400 mb-4 animate-bounce-slow"
+            aria-hidden="true"
           ></i>
           <h3 class="text-xl font-semibold text-white mb-2">
             Fast Performance
@@ -269,13 +363,12 @@
           <p class="text-gray-300">
             Lightning-fast loading times and optimized user experience.
           </p>
-        </div>
+        </article>
 
-        <div
-          class="glass-effect rounded-lg p-6 text-center transform hover:scale-105 transition-all duration-300"
-        >
+        <article class="feature-card glass-effect rounded-lg p-6 text-center">
           <i
             class="bi bi-shield-check text-4xl text-rose-400 mb-4 animate-bounce-slow"
+            aria-hidden="true"
           ></i>
           <h3 class="text-xl font-semibold text-white mb-2">
             Secure & Reliable
@@ -283,24 +376,30 @@
           <p class="text-gray-300">
             Enterprise-grade security with 99.9% uptime guarantee.
           </p>
-        </div>
+        </article>
 
-        <div
-          class="glass-effect rounded-lg p-6 text-center transform hover:scale-105 transition-all duration-300"
-        >
+        <article class="feature-card glass-effect rounded-lg p-6 text-center">
           <i
             class="bi bi-people text-4xl text-rose-400 mb-4 animate-bounce-slow"
+            aria-hidden="true"
           ></i>
           <h3 class="text-xl font-semibold text-white mb-2">User-Friendly</h3>
           <p class="text-gray-300">
             Intuitive interface designed for seamless user interaction.
           </p>
-        </div>
+        </article>
       </section>
 
       <!-- About Section -->
-      <section id="about" class="glass-effect rounded-lg p-8 mb-6">
-        <h2 class="text-3xl font-bold text-white mb-6 text-center">
+      <section
+        id="about"
+        class="glass-effect rounded-lg p-8 mb-6 animate-on-scroll"
+        aria-labelledby="about-heading"
+      >
+        <h2
+          id="about-heading"
+          class="text-3xl font-bold text-white mb-6 text-center"
+        >
           About ByteBattle
         </h2>
         <div class="grid md:grid-cols-2 gap-8 items-center">
@@ -314,114 +413,172 @@
               experience, we deliver robust, scalable solutions for the digital
               age.
             </p>
-            <div class="flex gap-4">
+            <div class="flex gap-4 justify-center md:justify-start">
               <div class="text-center">
-                <div class="text-2xl font-bold text-rose-400">100+</div>
+                <div
+                  class="text-2xl font-bold text-rose-400"
+                  aria-label="100 plus projects completed"
+                >
+                  100+
+                </div>
                 <div class="text-gray-400 text-sm">Projects</div>
               </div>
               <div class="text-center">
-                <div class="text-2xl font-bold text-rose-400">50+</div>
+                <div
+                  class="text-2xl font-bold text-rose-400"
+                  aria-label="50 plus satisfied clients"
+                >
+                  50+
+                </div>
                 <div class="text-gray-400 text-sm">Clients</div>
               </div>
               <div class="text-center">
-                <div class="text-2xl font-bold text-rose-400">99%</div>
+                <div
+                  class="text-2xl font-bold text-rose-400"
+                  aria-label="99 percent satisfaction rate"
+                >
+                  99%
+                </div>
                 <div class="text-gray-400 text-sm">Satisfaction</div>
               </div>
             </div>
           </div>
           <div class="text-center">
-            <i class="bi bi-code-slash text-8xl text-rose-400 opacity-60"></i>
+            <i
+              class="bi bi-code-slash text-8xl text-rose-400 opacity-60 animate-float"
+              aria-hidden="true"
+            ></i>
           </div>
         </div>
       </section>
 
       <!-- Services Section -->
-      <section id="services" class="glass-effect rounded-lg p-8 mb-6">
-        <h2 class="text-3xl font-bold text-white mb-6 text-center">
+      <section
+        id="services"
+        class="glass-effect rounded-lg p-8 mb-6 animate-on-scroll"
+        aria-labelledby="services-heading"
+      >
+        <h2
+          id="services-heading"
+          class="text-3xl font-bold text-white mb-6 text-center"
+        >
           Our Services
         </h2>
         <div class="grid md:grid-cols-3 gap-6">
-          <div
-            class="glass-effect rounded-lg p-6 text-center transform hover:scale-105 transition-all duration-300"
-          >
-            <i class="bi bi-display text-4xl text-rose-400 mb-4"></i>
+          <article class="feature-card glass-effect rounded-lg p-6 text-center">
+            <i
+              class="bi bi-display text-4xl text-rose-400 mb-4"
+              aria-hidden="true"
+            ></i>
             <h3 class="text-xl font-semibold text-white mb-2">
               Web Development
             </h3>
             <p class="text-gray-300">
               We build modern, responsive, and user-friendly websites.
             </p>
-          </div>
-          <div
-            class="glass-effect rounded-lg p-6 text-center transform hover:scale-105 transition-all duration-300"
-          >
-            <i class="bi bi-phone text-4xl text-rose-400 mb-4"></i>
+          </article>
+
+          <article class="feature-card glass-effect rounded-lg p-6 text-center">
+            <i
+              class="bi bi-phone text-4xl text-rose-400 mb-4"
+              aria-hidden="true"
+            ></i>
             <h3 class="text-xl font-semibold text-white mb-2">
               Mobile App Development
             </h3>
             <p class="text-gray-300">
               We create native and cross-platform mobile applications.
             </p>
-          </div>
-          <div
-            class="glass-effect rounded-lg p-6 text-center transform hover:scale-105 transition-all duration-300"
-          >
-            <i class="bi bi-cloud text-4xl text-rose-400 mb-4"></i>
+          </article>
+
+          <article class="feature-card glass-effect rounded-lg p-6 text-center">
+            <i
+              class="bi bi-cloud text-4xl text-rose-400 mb-4"
+              aria-hidden="true"
+            ></i>
             <h3 class="text-xl font-semibold text-white mb-2">
               Cloud Solutions
             </h3>
             <p class="text-gray-300">
               We provide cloud hosting, deployment, and management services.
             </p>
-          </div>
+          </article>
         </div>
       </section>
 
       <!-- Portfolio Section -->
-      <section id="portfolio" class="glass-effect rounded-lg p-8 mb-6">
-        <h2 class="text-3xl font-bold text-white mb-6 text-center">
+      <section
+        id="portfolio"
+        class="glass-effect rounded-lg p-8 mb-6 animate-on-scroll"
+        aria-labelledby="portfolio-heading"
+      >
+        <h2
+          id="portfolio-heading"
+          class="text-3xl font-bold text-white mb-6 text-center"
+        >
           Our Portfolio
         </h2>
         <div class="grid md:grid-cols-3 gap-6">
-          <div
-            class="glass-effect rounded-lg p-6 text-center transform hover:scale-105 transition-all duration-300"
-          >
-            <img
-              src="https://via.placeholder.com/300"
-              alt="Project 1"
-              class="rounded-lg mb-4"
-            />
-            <h3 class="text-xl font-semibold text-white mb-2">Project 1</h3>
-            <p class="text-gray-300">A brief description of the project.</p>
-          </div>
-          <div
-            class="glass-effect rounded-lg p-6 text-center transform hover:scale-105 transition-all duration-300"
-          >
-            <img
-              src="https://via.placeholder.com/300"
-              alt="Project 2"
-              class="rounded-lg mb-4"
-            />
-            <h3 class="text-xl font-semibold text-white mb-2">Project 2</h3>
-            <p class="text-gray-300">A brief description of the project.</p>
-          </div>
-          <div
-            class="glass-effect rounded-lg p-6 text-center transform hover:scale-105 transition-all duration-300"
-          >
-            <img
-              src="https://via.placeholder.com/300"
-              alt="Project 3"
-              class="rounded-lg mb-4"
-            />
-            <h3 class="text-xl font-semibold text-white mb-2">Project 3</h3>
-            <p class="text-gray-300">A brief description of the project.</p>
-          </div>
+          <article class="feature-card glass-effect rounded-lg p-6 text-center">
+            <div
+              class="bg-gradient-to-br from-rose-400 to-purple-500 rounded-lg mb-4 h-48 flex items-center justify-center"
+            >
+              <i
+                class="bi bi-gear-wide-connected text-6xl text-white"
+                aria-hidden="true"
+              ></i>
+            </div>
+            <h3 class="text-xl font-semibold text-white mb-2">
+              E-Commerce Platform
+            </h3>
+            <p class="text-gray-300">
+              Modern online store with advanced features and seamless checkout.
+            </p>
+          </article>
+
+          <article class="feature-card glass-effect rounded-lg p-6 text-center">
+            <div
+              class="bg-gradient-to-br from-blue-400 to-indigo-500 rounded-lg mb-4 h-48 flex items-center justify-center"
+            >
+              <i class="bi bi-phone text-6xl text-white" aria-hidden="true"></i>
+            </div>
+            <h3 class="text-xl font-semibold text-white mb-2">
+              Mobile Banking App
+            </h3>
+            <p class="text-gray-300">
+              Secure financial application with biometric authentication.
+            </p>
+          </article>
+
+          <article class="feature-card glass-effect rounded-lg p-6 text-center">
+            <div
+              class="bg-gradient-to-br from-green-400 to-teal-500 rounded-lg mb-4 h-48 flex items-center justify-center"
+            >
+              <i
+                class="bi bi-cloud-check text-6xl text-white"
+                aria-hidden="true"
+              ></i>
+            </div>
+            <h3 class="text-xl font-semibold text-white mb-2">
+              Cloud Dashboard
+            </h3>
+            <p class="text-gray-300">
+              Comprehensive analytics platform with real-time monitoring.
+            </p>
+          </article>
         </div>
       </section>
 
       <!-- Contact Section -->
-      <section id="contact" class="glass-effect rounded-lg p-8">
-        <h2 class="text-3xl font-bold text-white mb-6 text-center">
+      <section
+        id="contact"
+        class="glass-effect rounded-lg p-8 animate-on-scroll"
+        aria-labelledby="contact-heading"
+      >
+        <h2
+          id="contact-heading"
+          class="text-3xl font-bold text-white mb-6 text-center"
+        >
           Get In Touch
         </h2>
         <div class="grid md:grid-cols-2 gap-8">
@@ -429,46 +586,87 @@
             <h3 class="text-xl font-semibold text-white mb-4">
               Contact Information
             </h3>
-            <div class="space-y-3">
+            <address class="space-y-3 not-italic">
               <div class="flex items-center text-gray-300">
-                <i class="bi bi-geo-alt-fill text-rose-400 mr-3"></i>
+                <i
+                  class="bi bi-geo-alt-fill text-rose-400 mr-3"
+                  aria-hidden="true"
+                ></i>
                 Varanasi, Uttar Pradesh, India
               </div>
               <div class="flex items-center text-gray-300">
-                <i class="bi bi-envelope-fill text-rose-400 mr-3"></i>
-                support@bytebattle.qzz.io
+                <i
+                  class="bi bi-envelope-fill text-rose-400 mr-3"
+                  aria-hidden="true"
+                ></i>
+                <a
+                  href="mailto:support@bytebattle.qzz.io"
+                  class="hover:text-rose-400 transition-colors"
+                >
+                  support@bytebattle.qzz.io
+                </a>
               </div>
               <div class="flex items-center text-gray-300">
-                <i class="bi bi-phone-fill text-rose-400 mr-3"></i>
-                +91 XXX XXX XXXX
+                <i
+                  class="bi bi-phone-fill text-rose-400 mr-3"
+                  aria-hidden="true"
+                ></i>
+                <a
+                  href="tel:+91XXXXXXXXX"
+                  class="hover:text-rose-400 transition-colors"
+                >
+                  +91 XXX XXX XXXX
+                </a>
               </div>
-            </div>
+            </address>
           </div>
           <div>
-            <form class="space-y-4">
-              <input
-                type="text"
-                placeholder="Your Name"
-                class="w-full px-4 py-2 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-400 focus:border-rose-500 focus:outline-none transition-colors"
-                required
-              />
-              <input
-                type="email"
-                placeholder="Your Email"
-                class="w-full px-4 py-2 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-400 focus:border-rose-500 focus:outline-none transition-colors"
-                required
-              />
-              <textarea
-                placeholder="Your Message"
-                rows="4"
-                class="w-full px-4 py-2 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-400 focus:border-rose-500 focus:outline-none transition-colors resize-none"
-                required
-              ></textarea>
+            <form class="space-y-4" id="contact-form" aria-label="Contact form">
+              <div>
+                <label for="name" class="sr-only">Your Name</label>
+                <input
+                  type="text"
+                  id="name"
+                  name="name"
+                  placeholder="Your Name"
+                  class="w-full px-4 py-2 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-400 focus:border-rose-500 focus:outline-none focus:ring-2 focus:ring-rose-300 transition-colors"
+                  required
+                  aria-required="true"
+                />
+              </div>
+              <div>
+                <label for="email" class="sr-only">Your Email</label>
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  placeholder="Your Email"
+                  class="w-full px-4 py-2 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-400 focus:border-rose-500 focus:outline-none focus:ring-2 focus:ring-rose-300 transition-colors"
+                  required
+                  aria-required="true"
+                />
+              </div>
+              <div>
+                <label for="message" class="sr-only">Your Message</label>
+                <textarea
+                  id="message"
+                  name="message"
+                  placeholder="Your Message"
+                  rows="4"
+                  class="w-full px-4 py-2 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-400 focus:border-rose-500 focus:outline-none focus:ring-2 focus:ring-rose-300 transition-colors resize-none"
+                  required
+                  aria-required="true"
+                ></textarea>
+              </div>
               <button
                 type="submit"
-                class="w-full bg-rose-600 hover:bg-rose-700 text-white font-bold py-3 px-6 rounded-lg transition-all duration-300 transform hover:scale-105"
+                class="w-full bg-rose-600 hover:bg-rose-700 text-white font-bold py-3 px-6 rounded-lg transition-all duration-300 transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-rose-300 disabled:opacity-50 disabled:cursor-not-allowed"
+                id="submit-btn"
               >
-                <i class="bi bi-send mr-2"></i>Send Message
+                <span class="flex items-center justify-center">
+                  <i class="bi bi-send mr-2" aria-hidden="true"></i>
+                  <span id="btn-text">Send Message</span>
+                </span>
               </button>
             </form>
           </div>
@@ -477,88 +675,411 @@
     </main>
 
     <!-- Footer -->
-    <footer class="text-center py-6 border-t border-gray-800">
+    <footer
+      class="text-center py-6 border-t border-gray-800"
+      role="contentinfo"
+    >
       <p class="text-gray-400">
         © 2025 ByteBattle. Built with ❤️ by Aryan Verma
       </p>
-      <div class="flex justify-center gap-4 mt-3">
-        <a href="#" class="text-gray-400 hover:text-rose-400 transition-colors">
-          <i class="bi bi-github"></i>
+      <nav
+        class="flex justify-center gap-4 mt-3"
+        aria-label="Social media links"
+      >
+        <a
+          href="#"
+          class="text-gray-400 hover:text-rose-400 transition-colors focus:outline-none focus:ring-2 focus:ring-rose-400 rounded p-1"
+          aria-label="Visit our GitHub profile"
+        >
+          <i class="bi bi-github" aria-hidden="true"></i>
         </a>
-        <a href="#" class="text-gray-400 hover:text-rose-400 transition-colors">
-          <i class="bi bi-linkedin"></i>
+        <a
+          href="#"
+          class="text-gray-400 hover:text-rose-400 transition-colors focus:outline-none focus:ring-2 focus:ring-rose-400 rounded p-1"
+          aria-label="Connect with us on LinkedIn"
+        >
+          <i class="bi bi-linkedin" aria-hidden="true"></i>
         </a>
-        <a href="#" class="text-gray-400 hover:text-rose-400 transition-colors">
-          <i class="bi bi-twitter"></i>
+        <a
+          href="#"
+          class="text-gray-400 hover:text-rose-400 transition-colors focus:outline-none focus:ring-2 focus:ring-rose-400 rounded p-1"
+          aria-label="Follow us on Twitter"
+        >
+          <i class="bi bi-twitter" aria-hidden="true"></i>
         </a>
-      </div>
+      </nav>
     </footer>
 
-    <!-- Smooth Scrolling Script -->
+    <!-- Scripts -->
     <script>
-      $(document).ready(function () {
+      // Modern vanilla JS implementation
+      document.addEventListener("DOMContentLoaded", function () {
+        // Intersection Observer for scroll animations
+        const observerOptions = {
+          threshold: 0.1,
+          rootMargin: "0px 0px -50px 0px",
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add("in-view");
+            }
+          });
+        }, observerOptions);
+
+        document.querySelectorAll(".animate-on-scroll").forEach((el) => {
+          observer.observe(el);
+        });
+
         // Smooth scrolling for navigation links
-        $('a[href^="#"]').click(function (e) {
-          e.preventDefault();
-          const target = $($(this).attr("href"));
-          if (target.length) {
-            $("html, body").animate(
-              {
-                scrollTop: target.offset().top - 100,
-              },
-              800
-            );
-          }
-        });
-
-        // Form submission handler
-        $("form").submit(function (e) {
-          e.preventDefault();
-          alert("Thank you for your message! We will get back to you soon.");
-          this.reset();
-        });
-
-        // Add active state to navigation
-        const sections = $("section[id]");
-        const navLinks = $('nav a[href^="#"]');
-
-        $(window).scroll(function () {
-          const scrollTop = $(window).scrollTop() + 150;
-
-          sections.each(function () {
-            const section = $(this);
-            const offset = section.offset().top;
-            const height = section.outerHeight();
-
-            if (scrollTop >= offset && scrollTop < offset + height) {
-              navLinks.removeClass("!bg-white !text-gray-800");
-              navLinks
-                .filter(`[href="#${section.attr("id")}"]`)
-                .addClass("!bg-white !text-gray-800");
+        document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+          anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            const target = document.querySelector(this.getAttribute("href"));
+            if (target) {
+              const offsetTop =
+                target.getBoundingClientRect().top + window.pageYOffset - 100;
+              window.scrollTo({
+                top: offsetTop,
+                behavior: "smooth",
+              });
             }
           });
         });
 
-        // Dropdown toggle
-        $(".dropdown-toggle").click(function (e) {
+        // Enhanced form submission with validation
+        const form = document.getElementById("contact-form");
+        const submitBtn = document.getElementById("submit-btn");
+        const btnText = document.getElementById("btn-text");
+
+        form.addEventListener("submit", async function (e) {
           e.preventDefault();
-          var $dropdownMenu = $(this).next(".dropdown-menu");
-          $dropdownMenu.toggleClass("hidden");
-          $(".dropdown-menu").not($dropdownMenu).addClass("hidden");
+
+          // Disable button and show loading state
+          submitBtn.disabled = true;
+          btnText.textContent = "Sending...";
+
+          // Simulate form submission
+          await new Promise((resolve) => setTimeout(resolve, 1000));
+
+          // Show success message
+          const successMsg = document.createElement("div");
+          successMsg.className =
+            "bg-green-600 text-white p-4 rounded-lg mt-4 animate-fade-in";
+          successMsg.textContent =
+            "Thank you for your message! We will get back to you soon.";
+          form.appendChild(successMsg);
+
+          // Reset form
+          form.reset();
+
+          // Reset button
+          setTimeout(() => {
+            submitBtn.disabled = false;
+            btnText.textContent = "Send Message";
+            successMsg.remove();
+          }, 3000);
         });
 
-        // Hide dropdown when clicking outside
-        $(document).click(function (e) {
-          if (!$(e.target).closest(".dropdown").length) {
-            $(".dropdown-menu").addClass("hidden");
+        // Active navigation state
+        const sections = document.querySelectorAll("section[id]");
+        const navLinks = document.querySelectorAll('nav a[href^="#"]');
+
+        const updateActiveNav = () => {
+          const scrollTop = window.pageYOffset + 150;
+
+          sections.forEach((section) => {
+            const offset = section.offsetTop;
+            const height = section.offsetHeight;
+
+            if (scrollTop >= offset && scrollTop < offset + height) {
+              navLinks.forEach((link) => {
+                link.classList.remove("!bg-white", "!text-gray-800");
+              });
+
+              const activeLink = document.querySelector(
+                `nav a[href="#${section.id}"]`
+              );
+              if (activeLink) {
+                activeLink.classList.add("!bg-white", "!text-gray-800");
+              }
+            }
+          });
+        };
+
+        // Throttled scroll event
+        let scrollTimeout;
+        window.addEventListener("scroll", () => {
+          if (scrollTimeout) {
+            clearTimeout(scrollTimeout);
+          }
+          scrollTimeout = setTimeout(updateActiveNav, 10);
+        });
+
+        // Dropdown functionality
+        const dropdownToggle = document.querySelector(".dropdown-toggle");
+        const dropdownMenu = document.querySelector(".dropdown-menu");
+
+        if (dropdownToggle && dropdownMenu) {
+          dropdownToggle.addEventListener("click", (e) => {
+            e.preventDefault();
+            dropdownMenu.classList.toggle("hidden");
+            const expanded = !dropdownMenu.classList.contains("hidden");
+            dropdownToggle.setAttribute("aria-expanded", expanded.toString());
+          });
+
+          // Close dropdown when clicking outside
+          document.addEventListener("click", (e) => {
+            if (!e.target.closest(".dropdown")) {
+              dropdownMenu.classList.add("hidden");
+              dropdownToggle.setAttribute("aria-expanded", "false");
+            }
+          });
+        }
+
+        // Hamburger menu toggle
+        const hamburgerButton = document.getElementById("hamburger-button");
+        const mainNav = document.getElementById("main-nav");
+
+        if (hamburgerButton && mainNav) {
+          hamburgerButton.addEventListener("click", () => {
+            mainNav.classList.toggle("hidden");
+            const expanded = !mainNav.classList.contains("hidden");
+            hamburgerButton.setAttribute("aria-expanded", expanded.toString());
+
+            // Update hamburger icon
+            const icon = hamburgerButton.querySelector("i");
+            if (expanded) {
+              icon.className = "bi bi-x";
+            } else {
+              icon.className = "bi bi-list";
+            }
+          });
+
+          // Close mobile menu when clicking on links
+          mainNav.querySelectorAll("a").forEach((link) => {
+            link.addEventListener("click", () => {
+              if (window.innerWidth < 768) {
+                mainNav.classList.add("hidden");
+                hamburgerButton.setAttribute("aria-expanded", "false");
+                hamburgerButton.querySelector("i").className = "bi bi-list";
+              }
+            });
+          });
+        }
+
+        // Keyboard navigation support
+        document.addEventListener("keydown", (e) => {
+          if (e.key === "Escape") {
+            // Close any open dropdowns
+            document.querySelectorAll(".dropdown-menu").forEach((menu) => {
+              menu.classList.add("hidden");
+            });
+            document.querySelectorAll(".dropdown-toggle").forEach((toggle) => {
+              toggle.setAttribute("aria-expanded", "false");
+            });
+
+            // Close mobile menu
+            if (mainNav && !mainNav.classList.contains("hidden")) {
+              mainNav.classList.add("hidden");
+              hamburgerButton.setAttribute("aria-expanded", "false");
+              hamburgerButton.querySelector("i").className = "bi bi-list";
+            }
           }
         });
 
-        // Hamburger menu toggle
-        $("#hamburger-button").click(function () {
-          $("#main-nav").toggleClass("hidden");
+        // Performance optimization: Debounced resize handler
+        let resizeTimeout;
+        window.addEventListener("resize", () => {
+          if (resizeTimeout) {
+            clearTimeout(resizeTimeout);
+          }
+          resizeTimeout = setTimeout(() => {
+            // Close mobile menu on desktop resize
+            if (window.innerWidth >= 768 && mainNav) {
+              mainNav.classList.remove("hidden");
+              hamburgerButton.setAttribute("aria-expanded", "false");
+              hamburgerButton.querySelector("i").className = "bi bi-list";
+            }
+          }, 250);
         });
+
+        // Enhanced accessibility: Focus management
+        const focusableElements =
+          'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])';
+
+        // Trap focus in mobile menu when open
+        document.addEventListener("keydown", (e) => {
+          if (
+            e.key === "Tab" &&
+            mainNav &&
+            !mainNav.classList.contains("hidden") &&
+            window.innerWidth < 768
+          ) {
+            const focusableContent =
+              mainNav.querySelectorAll(focusableElements);
+            const firstFocusableElement = focusableContent[0];
+            const lastFocusableElement =
+              focusableContent[focusableContent.length - 1];
+
+            if (e.shiftKey) {
+              if (document.activeElement === firstFocusableElement) {
+                lastFocusableElement.focus();
+                e.preventDefault();
+              }
+            } else {
+              if (document.activeElement === lastFocusableElement) {
+                firstFocusableElement.focus();
+                e.preventDefault();
+              }
+            }
+          }
+        });
+
+        // Reduced motion support
+        const prefersReducedMotion = window.matchMedia(
+          "(prefers-reduced-motion: reduce)"
+        );
+
+        if (prefersReducedMotion.matches) {
+          document.documentElement.style.setProperty(
+            "--animation-duration",
+            "0.1s"
+          );
+          document
+            .querySelectorAll(".animate-bounce-slow, .animate-float")
+            .forEach((el) => {
+              el.style.animation = "none";
+            });
+        }
+
+        // Lazy loading for better performance
+        const lazyImages = document.querySelectorAll("img[data-src]");
+        const imageObserver = new IntersectionObserver((entries, observer) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              const img = entry.target;
+              img.src = img.dataset.src;
+              img.classList.remove("lazy");
+              imageObserver.unobserve(img);
+            }
+          });
+        });
+
+        lazyImages.forEach((img) => imageObserver.observe(img));
+
+        // Service Worker registration for PWA capabilities (optional)
+        if ("serviceWorker" in navigator) {
+          window.addEventListener("load", () => {
+            // Uncomment when service worker is available
+            // navigator.serviceWorker.register('/sw.js')
+            //   .then(registration => console.log('SW registered: ', registration))
+            //   .catch(registrationError => console.log('SW registration failed: ', registrationError));
+          });
+        }
+
+        // Error handling for better user experience
+        window.addEventListener("error", (e) => {
+          console.error("JavaScript error:", e.error);
+          // Could implement user-friendly error reporting here
+        });
+
+        // Analytics and performance monitoring (placeholder)
+        const performanceObserver = new PerformanceObserver((list) => {
+          list.getEntries().forEach((entry) => {
+            // Log performance metrics
+            if (entry.entryType === "largest-contentful-paint") {
+              console.log("LCP:", entry.startTime);
+            }
+            if (entry.entryType === "first-input") {
+              console.log("FID:", entry.processingStart - entry.startTime);
+            }
+          });
+        });
+
+        // Observe performance metrics
+        try {
+          performanceObserver.observe({
+            entryTypes: ["largest-contentful-paint", "first-input"],
+          });
+        } catch (e) {
+          // Browser doesn't support these metrics
+          console.log("Performance observer not supported");
+        }
+
+        // Dark/Light mode toggle (bonus feature)
+        const createThemeToggle = () => {
+          const toggle = document.createElement("button");
+          toggle.className =
+            "fixed bottom-4 right-4 bg-rose-600 hover:bg-rose-700 text-white p-3 rounded-full shadow-lg transition-all duration-300 z-50 focus:outline-none focus:ring-4 focus:ring-rose-300";
+          toggle.innerHTML =
+            '<i class="bi bi-moon-stars" aria-hidden="true"></i>';
+          toggle.setAttribute("aria-label", "Toggle dark mode");
+
+          toggle.addEventListener("click", () => {
+            document.body.classList.toggle("light-mode");
+            const isLight = document.body.classList.contains("light-mode");
+            toggle.innerHTML = `<i class="bi bi-${
+              isLight ? "sun" : "moon-stars"
+            }" aria-hidden="true"></i>`;
+            toggle.setAttribute(
+              "aria-label",
+              `Toggle ${isLight ? "dark" : "light"} mode`
+            );
+
+            // Save preference
+            localStorage.setItem("theme", isLight ? "light" : "dark");
+          });
+
+          document.body.appendChild(toggle);
+
+          // Load saved theme preference
+          const savedTheme = localStorage.getItem("theme");
+          if (savedTheme === "light") {
+            document.body.classList.add("light-mode");
+            toggle.innerHTML = '<i class="bi bi-sun" aria-hidden="true"></i>';
+            toggle.setAttribute("aria-label", "Toggle dark mode");
+          }
+        };
+
+        // Uncomment to enable theme toggle
+        // createThemeToggle();
+
+        console.log("ByteBattle website loaded successfully! 🚀");
       });
+
+      // CSS for light mode (if theme toggle is enabled)
+      const lightModeStyles = `
+        .light-mode {
+          --bg-primary: #f8fafc;
+          --bg-secondary: #ffffff;
+          --text-primary: #1f2937;
+          --text-secondary: #6b7280;
+        }
+        
+        .light-mode .bg-gray-900 {
+          background-color: var(--bg-primary);
+        }
+        
+        .light-mode .glass-effect {
+          background: rgba(255, 255, 255, 0.8);
+          border: 1px solid rgba(0, 0, 0, 0.1);
+        }
+        
+        .light-mode .text-white {
+          color: var(--text-primary);
+        }
+        
+        .light-mode .text-gray-300 {
+          color: var(--text-secondary);
+        }
+      `;
+
+      // Inject light mode styles
+      const styleSheet = document.createElement("style");
+      styleSheet.textContent = lightModeStyles;
+      document.head.appendChild(styleSheet);
     </script>
   </body>
 </html>
