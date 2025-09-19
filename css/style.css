@@ -56,3 +56,11 @@
 .nav-link:hover::before {
   left: 100%;
 }
+
+.dropdown:hover .dropdown-menu {
+  display: block;
+}
+
+.dropdown-menu {
+  transition: all 0.3s ease-in-out;
+}

@@ -84,6 +84,28 @@
               <i class="bi bi-info-circle-fill mr-2"></i>About
             </a>
           </li>
+          <li class="relative dropdown">
+            <a
+              class="nav-link inline-block text-center font-bold px-4 py-3 w-36 rounded-full text-rose-600 bg-white/90 hover:bg-white hover:text-gray-800 hover:shadow-lg transform hover:scale-105 transition-all duration-300 backdrop-blur-sm dropdown-toggle"
+              href="#services"
+            >
+              <i class="bi bi-gear-fill mr-2"></i>Services
+              <i class="bi bi-chevron-down ml-1"></i>
+            </a>
+            <ul class="dropdown-menu absolute hidden bg-white/90 rounded-lg shadow-lg mt-2 w-48">
+              <li><a href="#" class="block px-4 py-2 text-rose-600 hover:bg-white hover:text-gray-800">Web Development</a></li>
+              <li><a href="#" class="block px-4 py-2 text-rose-600 hover:bg-white hover:text-gray-800">Mobile App Development</a></li>
+              <li><a href="#" class="block px-4 py-2 text-rose-600 hover:bg-white hover:text-gray-800">Cloud Solutions</a></li>
+            </ul>
+          </li>
+          <li>
+            <a
+              class="nav-link inline-block text-center font-bold px-4 py-3 w-36 rounded-full text-rose-600 bg-white/90 hover:bg-white hover:text-gray-800 hover:shadow-lg transform hover:scale-105 transition-all duration-300 backdrop-blur-sm"
+              href="#portfolio"
+            >
+              <i class="bi bi-briefcase-fill mr-2"></i>Portfolio
+            </a>
+          </li>
           <li>
             <a
               class="nav-link inline-block text-center font-bold px-4 py-3 w-36 rounded-full text-rose-600 bg-white/90 hover:bg-white hover:text-gray-800 hover:shadow-lg transform hover:scale-105 transition-all duration-300 backdrop-blur-sm"
@@ -162,6 +184,50 @@
           </div>
           <div class="text-center">
             <i class="bi bi-code-slash text-8xl text-rose-400 opacity-60"></i>
+          </div>
+        </div>
+      </section>
+      
+      <!-- Services Section -->
+      <section id="services" class="glass-effect rounded-lg p-8 mb-6">
+        <h2 class="text-3xl font-bold text-white mb-6 text-center">Our Services</h2>
+        <div class="grid md:grid-cols-3 gap-6">
+          <div class="glass-effect rounded-lg p-6 text-center transform hover:scale-105 transition-all duration-300">
+            <i class="bi bi-display text-4xl text-rose-400 mb-4"></i>
+            <h3 class="text-xl font-semibold text-white mb-2">Web Development</h3>
+            <p class="text-gray-300">We build modern, responsive, and user-friendly websites.</p>
+          </div>
+          <div class="glass-effect rounded-lg p-6 text-center transform hover:scale-105 transition-all duration-300">
+            <i class="bi bi-phone text-4xl text-rose-400 mb-4"></i>
+            <h3 class="text-xl font-semibold text-white mb-2">Mobile App Development</h3>
+            <p class="text-gray-300">We create native and cross-platform mobile applications.</p>
+          </div>
+          <div class="glass-effect rounded-lg p-6 text-center transform hover:scale-105 transition-all duration-300">
+            <i class="bi bi-cloud text-4xl text-rose-400 mb-4"></i>
+            <h3 class="text-xl font-semibold text-white mb-2">Cloud Solutions</h3>
+            <p class="text-gray-300">We provide cloud hosting, deployment, and management services.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Portfolio Section -->
+      <section id="portfolio" class="glass-effect rounded-lg p-8 mb-6">
+        <h2 class="text-3xl font-bold text-white mb-6 text-center">Our Portfolio</h2>
+        <div class="grid md:grid-cols-3 gap-6">
+          <div class="glass-effect rounded-lg p-6 text-center transform hover:scale-105 transition-all duration-300">
+            <img src="https://via.placeholder.com/300" alt="Project 1" class="rounded-lg mb-4">
+            <h3 class="text-xl font-semibold text-white mb-2">Project 1</h3>
+            <p class="text-gray-300">A brief description of the project.</p>
+          </div>
+          <div class="glass-effect rounded-lg p-6 text-center transform hover:scale-105 transition-all duration-300">
+            <img src="https://via.placeholder.com/300" alt="Project 2" class="rounded-lg mb-4">
+            <h3 class="text-xl font-semibold text-white mb-2">Project 2</h3>
+            <p class="text-gray-300">A brief description of the project.</p>
+          </div>
+          <div class="glass-effect rounded-lg p-6 text-center transform hover:scale-105 transition-all duration-300">
+            <img src="https://via.placeholder.com/300" alt="Project 3" class="rounded-lg mb-4">
+            <h3 class="text-xl font-semibold text-white mb-2">Project 3</h3>
+            <p class="text-gray-300">A brief description of the project.</p>
           </div>
         </div>
       </section>
@@ -276,6 +342,21 @@
                      .addClass('!bg-white !text-gray-800');
             }
           });
+        });
+
+        // Dropdown toggle
+        $('.dropdown-toggle').click(function(e) {
+          e.preventDefault();
+          var $dropdownMenu = $(this).next('.dropdown-menu');
+          $dropdownMenu.toggleClass('hidden');
+          $('.dropdown-menu').not($dropdownMenu).addClass('hidden');
+        });
+
+        // Hide dropdown when clicking outside
+        $(document).click(function(e) {
+          if (!$(e.target).closest('.dropdown').length) {
+            $('.dropdown-menu').addClass('hidden');
+          }
         });
       });
     </script>
